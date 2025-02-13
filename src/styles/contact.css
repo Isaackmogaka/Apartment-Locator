@@ -1,0 +1,48 @@
+/* contact.css */
+
+.contact-container {
+    max-width: 600px; /* Limit the width of the contact form */
+    margin: auto; /* Center the container */
+    padding: 20px; /* Add padding */
+  }
+  
+  .contact-card {
+    background-color: #ffffff; /* White background for the card */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Padding inside the card */
+  }
+  
+  h2 {
+    color: #2c3e50; /* Darker color for the heading */
+  }
+  
+  .alert {
+    margin-bottom: 20px; /* Space below the alert */
+  }
+  
+  .form-label {
+    font-weight: 500; /* Medium weight for labels */
+    color: #495057; /* Dark gray for labels */
+  }
+  
+  .form-control {
+    border-radius: 5px; /* Rounded corners for inputs */
+    border: 1px solid #ced4da; /* Light border for inputs */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  }
+  
+  .form-control:focus {
+    border-color: #27ae60; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(39, 174, 96, 0.5); /* Green shadow on focus */
+  }
+  
+  .btn-primary {
+    background-color: #27ae60; /* Green color for the button */
+    border-color: #27ae60; /* Green border for the button */
+  }
+  
+  .btn-primary:hover {
+    background-color: #219150; /* Darker green on hover */
+    border-color: #219150; /* Darker green border on hover */
+  }

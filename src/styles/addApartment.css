@@ -1,0 +1,111 @@
+/* addApartment.css */
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-size: cover;
+  background-position: center;
+  color: #333; /* Dark text for readability */
+}
+
+.add-apartment-page {
+  position: relative; /* Position relative for the overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  overflow: hidden; /* Prevent overflow */
+}
+
+.add-apartment-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://example.com/your-background-image.jpg'); /* Replace with your image URL */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6; /* Adjust opacity to darken the image */
+  z-index: 1; /* Place it behind the content */
+}
+
+.content-container {
+  position: relative; /* Position relative to stack above the overlay */
+  max-width: 600px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  z-index: 2; /* Ensure content is above the overlay */
+}
+
+.info-card, .form-card {
+  border: none; /* Remove default border */
+  background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  text-align: center;
+  color: #2c3e50; /* Darker color for the title */
+}
+
+.title, .form-title {
+  font-family: 'Merriweather', serif; /* Elegant serif font for headings */
+  font-weight: 700; /* Bold for headings */
+}
+
+.info-text, .form-control, .submit-btn {
+  font-family: 'Roboto', sans-serif; /* Clean sans-serif font for body text */
+}
+
+.info-text {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #7f8c8d; /* Lighter color for the info text */
+}
+
+.form-card {
+  border: none; /* Remove default border */
+}
+
+.form-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50; /* Darker color for the form title */
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #27ae60; /* Green color for the button */
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #219653; /* Darker green on hover */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #bdc3c7; /* Light border */
+}
+
+.form-control:focus {
+  border-color: #27ae60; /* Green border on focus */
+  box-shadow: 0 0 5px rgba(39, 174, 96, 0.5); /* Green shadow on focus */
+}

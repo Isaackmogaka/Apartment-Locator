@@ -1,0 +1,78 @@
+/* booking.css */
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif; /* Clean and modern font */
+    background-color: #f8f9fa; /* Light background for the page */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .booking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .booking-container h2{
+    color:black;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  .apartment-id {
+    color: #27ae60; /* Green color for the apartment ID */
+    font-weight: 600; /* Slightly bolder text */
+  }
+  
+  .booking-card {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff; /* White background for the card */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px;
+  }
+  
+  .booking-card h2 {
+    font-size: 2rem;
+    color: #2c3e50; /* Dark blue-gray for headings */
+    text-align: center;
+    margin-bottom: 20px }
+  .booking-card h5 {
+    font-size: 1.25rem;
+    color: #2c3e50; /* Dark blue-gray for subheadings */
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    font-weight: 500; /* Medium weight for labels */
+    color: #495057; /* Dark gray for labels */
+  }
+  
+  .form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da; /* Light border for inputs */
+    padding: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #27ae60; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(39, 174, 96, 0.5); /* Green shadow on focus */
+  }
+  
+  .alert {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .btn-primary {
+    background-color: #27ae60; /* Green color for the button */
+    border-color: #27ae60; /* Green border for the button */
+  }
+  
+  .btn-primary:hover {
+    background-color: #219150; /* Darker green on hover */
+    border-color: #219150; /* Darker green border on hover */
+  }

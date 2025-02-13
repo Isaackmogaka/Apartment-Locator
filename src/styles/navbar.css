@@ -1,0 +1,27 @@
+/* Custom CSS for the navbar */
+.navbar-brand .fa-house {
+  color: white; /* Change icon color */
+}
+
+.navbar {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.navbar-brand {
+  font-size: 1.5rem; /* Increase brand font size */
+}
+
+.nav-link {
+  font-weight: 500; /* Medium weight for links */
+}
+
+.btn-outline-light {
+  border-color: white; /* Ensure border color matches the text */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.btn-outline-light:hover {
+  background-color: white; /* White background on hover */
+  color: #0dcaf0; /* Sky blue text on hover */
+}

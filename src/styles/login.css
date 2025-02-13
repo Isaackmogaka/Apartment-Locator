@@ -1,0 +1,38 @@
+/* login.css */
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .login-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-control {
+    padding-left: 40px; /* Add padding to make space for icons */
+  }
+  
+  h2 {
+    color: whitesmoke;
+  }
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left:0px;
+    margin-bottom:5px;
+    color: #6c757d;
+  }
+  
+  .form-control {
+    padding-left: 35px; /* Space for the icon */
+  }
+  

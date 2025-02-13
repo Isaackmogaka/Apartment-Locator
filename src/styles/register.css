@@ -1,0 +1,27 @@
+/* register.css */
+.register-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .register-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .input-icon {
+    position: absolute;
+    margin-left: -30px;
+    margin-top: 10px;
+    color: #6c757d;
+  }
+  
+  .form-control {
+    padding-left: 40px; /* Add padding to make space for icons */
+  }
+  
+  h2 {
+    color: #007bff;
+  }
