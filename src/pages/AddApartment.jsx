@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Card } from "react-bootstrap";
+import { Container, Form, Button, Card, Alert } from "react-bootstrap";
+import axios from "axios"; // Import axios for making HTTP requests
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import "../styles/addApartment.css";
 
 const AddApartment = () => {
@@ -12,6 +14,9 @@ const AddApartment = () => {
   });
 
   const [uploadMethod, setUploadMethod] = useState("upload"); // State to track upload method
+  const [error, setError] = useState(""); // State to handle errors
+  const [success, setSuccess] = useState(false); // State to handle success
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleChange = (e) => {
     setApartment({ ...apartment, [e.target.name]: e.target.value });
@@ -36,10 +41,44 @@ const AddApartment = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Apartment added:", apartment);
-    alert("Apartment added successfully!");
+
+    // Prepare the data to send to the backend
+    const apartmentData = {
+      name: apartment.name,
+      location: apartment.location,
+      price: apartment.price,
+      images: apartment.images,
+      description: apartment.description,
+    };
+
+    try {
+      // Make a POST request to the /apartments endpoint
+      const response = await axios.post("http://127.0.0.1:5000/apartments", apartmentData);
+
+      // Handle successful submission
+      if (response.status === 201) {
+        setSuccess(true);
+        setError("");
+        console.log("Apartment added successfully:", response.data);
+
+        // Redirect to the home page after a short delay
+        setTimeout(() => {
+          navigate("/");
+        }, 2000); // 2-second delay before redirection
+      }
+    } catch (err) {
+      // Handle errors
+      if (err.response) {
+        setError(err.response.data.message || "An error occurred while adding the apartment.");
+      } else if (err.request) {
+        setError("No response from the server. Please try again.");
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+      setSuccess(false);
+    }
   };
 
   return (
@@ -50,7 +89,7 @@ const AddApartment = () => {
             <h2 className="title">List Your Apartment</h2>
             <p className="info-text">
               Fill out the form below to add your apartment to our listings. Make sure to 
-              include clear images, accurate pricing , and detailed descriptions 
+              include clear images, accurate pricing, and detailed descriptions 
               to attract potential tenants.
             </p>
           </Card.Body>
@@ -59,6 +98,8 @@ const AddApartment = () => {
         <Card className="form-card">
           <Card.Body>
             <h3 className="form-title">Apartment Details</h3>
+            {success && <Alert variant="success">Apartment added successfully! Redirecting...</Alert>}
+            {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
                 <Form.Label>Apartment Name</Form.Label>

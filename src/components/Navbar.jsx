@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons'; // Import the house icon
 import "../styles/navbar.css";
 
-const Navigation = () => {
+const Navigation = ({ isLoggedIn, onLogout }) => {
   return (
     <Navbar bg="info" variant="light" expand="lg" className="mb-4">
       <Container>
@@ -22,30 +22,45 @@ const Navigation = () => {
             <Nav.Link as={Link} to="/apartments" className="me-3">
               Apartments
             </Nav.Link>
-            <Button
-              as={Link}
-              to="/add-apartment"
-              variant="outline-light"
-              className="me-3"
-            >
-              List Apartment
-            </Button>
-            <Button
-              as={Link}
-              to="/register"
-              variant="outline-light"
-              className="me-3"
-            >
-              Register
-            </Button>
-            <Button
-              as={Link}
-              to="/login"
-              variant="outline-light"
-              className="me-3"
-            >
-              Sign In
-            </Button>
+            {isLoggedIn && (
+              <Button
+                as={Link}
+                to="/add-apartment"
+                variant="outline-light"
+                className="me-3"
+              >
+                List Apartment
+              </Button>
+            )}
+            {!isLoggedIn && (
+              <>
+                <Button
+                  as={Link}
+                  to="/register"
+                  variant="outline-light"
+                  className="me-3"
+                >
+                  Register
+                </Button>
+                <Button
+                  as={Link}
+                  to="/login"
+                  variant="outline-light"
+                  className="me-3"
+                >
+                  Sign In
+                </Button>
+              </>
+            )}
+            {isLoggedIn && (
+              <Button
+                onClick={onLogout}
+                variant="outline-light"
+                className="me-3"
+              >
+                Logout
+              </Button>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -9,28 +9,76 @@ const Booking = () => {
     fullName: "",
     email: "",
     phone: "",
-    houseLocation: "", // Updated field
+    houseLocation: "",
     visitDate: "",
     visitTime: "",
   });
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Booking Data:", formData);
-    setSuccess(true);
+    setError(null);
+    
+    try {
+      // Convert to snake_case for backend compatibility
+      const payload = {
+        full_name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        house_location: formData.houseLocation,
+        visit_date: formData.visitDate,
+        visit_time: formData.visitTime,
+        apartment_id: id  // Include the apartment ID from URL params
+      };
+
+      const response = await fetch('http://127.0.0.1:5000/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to submit booking');
+      }
+
+      setSuccess(true);
+      // Reset form after successful submission
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        houseLocation: "",
+        visitDate: "",
+        visitTime: "",
+      });
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => setSuccess(false), 5000);
+
+    } catch (error) {
+      console.error('Booking error:', error);
+      setError(error.message || 'An error occurred while submitting the booking');
+    }
   };
 
   return (
     <Container className="booking-container">
-    <h2 className="text-center my-4">
+      <h2 className="text-center my-4">
         Book Apartment <span className="apartment-id">{id}</span>
-     </h2>
+      </h2>
+      
       {success && <Alert variant="success">Booking request submitted successfully!</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
+
       <Card className="booking-card">
         <Card.Body>
           <Form onSubmit={handleSubmit}>
@@ -59,7 +107,7 @@ const Booking = () => {
             <Form.Group className="mb-3">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
-                type="text"
+                type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
@@ -68,11 +116,11 @@ const Booking = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>House Location</Form.Label> {/* Updated label */}
+              <Form.Label>House Location</Form.Label>
               <Form.Control
                 type="text"
-                name="houseLocation" // Updated name
-                value={formData.houseLocation} // Updated value
+                name="houseLocation"
+                value={formData.houseLocation}
                 onChange={handleChange}
                 required
               />
@@ -101,8 +149,13 @@ const Booking = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 mt-3">
-              Submit Booking
+            <Button 
+              variant="primary" 
+              type="submit" 
+              className="w-100 mt-3"
+              disabled={success}  // Disable button when successful
+            >
+              {success ? 'Submitted!' : 'Submit Booking'}
             </Button>
           </Form>
         </Card.Body>

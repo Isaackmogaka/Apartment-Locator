@@ -1,41 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { MapPin, Wallet, CheckCircle } from "lucide-react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import "../styles/apartments.css";
-
-const apartments = [
-  {
-    id: 1,
-    name: "Modern 2-Bedroom Apartment",
-    location: "Thika Town",
-    price: "Ksh 25,000/month",
-    images: [
-      "https://content.knightfrank.com/property/hub2180951/images/92d82d90-21b4-4995-a76c-79197a945496-0.jpg?cio=true&w=730",
-      "https://mansiondeal.com/public/uploads/32342342342545345mk.webp",
-      "https://res.cloudinary.com/hao-finder/image/upload/c_fill,w_400/properties/TVC_VILLAGE_Prime_5.4_Acre_Retreat_and_Event_Center_for_Sale_in_Juja_Farm_1_ji6p8p",
-    ],
-    description: "A spacious 2-bedroom apartment with a modern design, great views, and secure parking.",
-    features: ["Spacious Rooms", "Secure Parking", "Near Shopping Centers"],
-  },
-  {
-    id: 2,
-    name: "Luxury 3-Bedroom Apartment",
-    location: "Thika Greens",
-    price: "Ksh 40,000/month",
-    images: [
-      "https://mansiondeal.com/public/uploads/1gvgxvxcbnvcxnvcbxvcxb.webp",
-      "https://content.knightfrank.com/property/hub2411485/images/0c169dba-fab5-4589-abf5-5a1e3a143250-0.jpg?cio=true&w=730",
-      "https://mansiondeal.com/public/uploads/326325326723dsjgdhjdfdfbjbfd.webp",
-    ],
-    description: "A luxurious 3-bedroom apartment in a serene environment with high-end finishes and a swimming pool.",
-    features: ["Swimming Pool", "Gated Community", "Fully Furnished"],
-  },
-];
 
 const Apartment = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedApartment, setSelectedApartment] = useState(null);
+  const [apartments, setApartments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/apartments')
+      .then(response => {
+        if (!response.ok) {
+          return response.text().then(text => {
+            throw new Error(`Server returned an error: ${text}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Fetched data:", data);
+        setApartments(data.apartments);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching apartments:", error);
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
 
   const handleShow = (apartment) => {
     setSelectedApartment(apartment);
@@ -47,6 +43,34 @@ const Apartment = () => {
     setSelectedApartment(null);
   };
 
+  if (loading) {
+    return (
+      <Container className="text-center mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-2">Loading apartments...</p>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container className="text-center mt-5">
+        <p className="text-danger">Failed to load apartments. Please try again later.</p>
+        <p className="text-muted">Error: {error}</p>
+      </Container>
+    );
+  }
+
+  if (!loading && apartments.length === 0) {
+    return (
+      <Container className="text-center mt-5">
+        <p className="text-warning">No apartments available at the moment.</p>
+      </Container>
+    );
+  }
+
   return (
     <Container className="apartment-container">
       <div className="ty">
@@ -56,8 +80,15 @@ const Apartment = () => {
         {apartments.map((apartment) => (
           <Col key={apartment.id} md={6} lg={4} className="mb-4">
             <Card className="apartment-card">
-              {/* Display the first image */}
-              <Card.Img variant="top" src={apartment.images[0]} alt={apartment.name} className="apartment-img" />
+              <Card.Img
+                variant="top"
+                src={apartment.images && apartment.images[0]}
+                alt={apartment.name}
+                className="apartment-img"
+                onError={(e) => {
+                  e.target.src = "https://via.placeholder.com/300";
+                }}
+              />
               <Card.Body>
                 <Card.Title className="apartment-title">{apartment.name}</Card.Title>
                 <Card.Text className="apartment-text">
@@ -65,17 +96,23 @@ const Apartment = () => {
                   <Wallet size={16} className="icon" /> <strong>Price:</strong> {apartment.price}
                 </Card.Text>
                 <ul>
-                  {apartment.features.map((feature, index) => (
+                  {apartment.features && apartment.features.map((feature, index) => (
                     <li key={index} className="feature-item">
                       <CheckCircle size={16} className="icon" /> {feature}
                     </li>
                   ))}
                 </ul>
-                {/* View Details Button */}
-                <Button variant="primary" onClick={() => handleShow(apartment)}>View Details</Button>
-                {/* Book Visit Button */}
+                <Button 
+                  variant="primary" 
+                  onClick={() => handleShow(apartment)} 
+                  aria-label="View Details"
+                >
+                  View Details
+                </Button>
                 <Link to={`/bookings/${apartment.id}`}>
-                  <Button variant="success" className="ml-2">Book Visit</Button>
+                  <Button variant="success" className="ml-2" aria-label="Book Visit">
+                    Book Visit
+                  </Button>
                 </Link>
               </Card.Body>
             </Card>
@@ -83,33 +120,52 @@ const Apartment = () => {
         ))}
       </Row>
 
-      {/* Modal for Apartment Details */}
       {selectedApartment && (
-        <Modal show={showModal} onHide={handleClose}>
+        <Modal show={showModal} onHide={handleClose} size="lg" centered>
           <Modal.Header closeButton>
             <Modal.Title>{selectedApartment.name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div>
-              {selectedApartment.images.map((image, index) => (
-                <img key={index} src={image} alt={`Apartment ${selectedApartment.id} image ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
+            <Row className="g-3 mb-4">
+              {selectedApartment.images && selectedApartment.images.map((image, index) => (
+                <Col key={index} xs={12} md={6} lg={4}>
+                  <div className="image-container">
+                    <img
+                      src={image}
+                      alt={`${selectedApartment.name} - Image ${index + 1}`}
+                      className="img-fluid rounded shadow-sm"
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/300";
+                      }}
+                    />
+                  </div>
+                </Col>
               ))}
-              <p><strong>Location:</strong> {selectedApartment.location}</p>
-              <p><strong>Price:</strong> {selectedApartment.price}</p>
-              <p><strong>Description:</strong> {selectedApartment.description}</p>
-              <ul>
-                {selectedApartment.features.map((feature, index) => (
-                  <li key={index} className="feature-item">
-                    <CheckCircle size={16} className="icon" /> {feature}
+            </Row>
+            <div className="apartment-details">
+              <p className="h5"><MapPin size={20} /> Location</p>
+              <p className="mb-3">{selectedApartment.location}</p>
+              
+              <p className="h5"><Wallet size={20} /> Pricing</p>
+              <p className="mb-3">${selectedApartment.price}/month</p>
+              
+              <p className="h5">🏠 Features</p>
+              <ul className="list-unstyled">
+                {selectedApartment.features && selectedApartment.features.map((feature, index) => (
+                  <li key={index} className="d-flex align-items-center mb-2">
+                    <CheckCircle size={16} className="me-2 text-success" />
+                    {feature}
                   </li>
                 ))}
               </ul>
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" className="close-button" onClick={handleClose}>Close</Button>
+            <Button variant="outline-secondary" onClick={handleClose}>
+              Close
+            </Button>
             <Link to={`/bookings/${selectedApartment.id}`}>
-              <Button variant="success">Book Visit</Button>
+              <Button variant="primary">Book Now</Button>
             </Link>
           </Modal.Footer>
         </Modal>
