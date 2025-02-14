@@ -109,3 +109,34 @@ body {
   border-color: #27ae60; /* Green border on focus */
   box-shadow: 0 0 5px rgba(39, 174, 96, 0.5); /* Green shadow on focus */
 }
+
+/* Media Queries for Smartphones */
+@media (max-width: 768px) {
+  .add-apartment-page {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+
+  .content-container {
+    padding: 20px; /* Reduce padding for smaller screens */
+  }
+
+  .title {
+    font-size: 1.5rem; /* Reduce font size for smaller screens */
+  }
+
+  .form-title {
+    font-size: 1.25rem; /* Reduce font size for smaller screens */
+  }
+
+  .info-text {
+    font-size: 0.875rem; /* Reduce font size for smaller screens */
+  }
+
+  .form-control, .submit-btn {
+    font-size: 0.875rem; /* Reduce font size for smaller screens */
+  }
+
+  .form-group {
+    margin-bottom: 10px; /* Reduce margin for smaller screens */
+  }
+}
