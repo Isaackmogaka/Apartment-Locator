@@ -2,7 +2,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: #f8f9fa;
   background: url('https://www.boardwalklux.com/gridmedia/img/slide3.jpg') center/cover no-repeat;
 }
@@ -103,43 +103,39 @@ body, html {
   padding: 50px;
   text-align: center;
 }
+
 .apartments h2 {
   font-size: 36px;
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin-bottom: 20px;
   color: white;
 }
 
 .apartment-list {
- display: flex;
+  display: flex;
   justify-content: center;
   gap: 20px;
 }
 
 .apartment-card {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  height: 100%; /* Make the card take full height of the column */
+  flex-direction: column;
+  height: 100%;
 }
 
 .apartment-card img {
-  height: 200px; /* Set a fixed height for images */
+  height: 200px;
   border-radius: 10px;
-  object-fit: cover; /* Ensure images cover the card area */
+  object-fit: cover;
 }
 
 .card-body {
-  flex-grow: 1; /* Allow the body to grow and fill the space */
+  flex-grow: 1;
 }
 
 .card-title {
-  margin-bottom: 10px; /* Add some space below the title */
+  margin-bottom: 10px;
 }
-
-/* .apartment-card img {
-  width: 100%;
-  border-radius: 10px;
-} */
 
 .apartment-card h3 {
   margin: 10px 0;
@@ -194,11 +190,86 @@ body, html {
 }
 
 .close-button {
-  background-color: orange; /* Set background color to orange */
-  color: white; /* Set text color to white for contrast */
-  border: none; /* Remove default border */
+  background-color: orange;
+  color: white;
+  border: none;
 }
 
 .close-button:hover {
-  background-color: darkorange; /* Darker shade on hover */
+  background-color: darkorange;
+}
+
+/* Media Queries for Smartphones */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .hero {
+    height: 300px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-bar input,
+  .search-bar select,
+  .search-bar button {
+    width: 100%;
+  }
+
+  .apartments {
+    padding:  30px;
+  }
+
+  .apartments h2 {
+    font-size: 28px;
+  }
+
+  .apartment-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .apartment-card {
+    width: 90%;
+  }
+
+  .apartment-card img {
+    height: 150px;
+  }
+
+  .apartment-card h3 {
+    font-size: 18px;
+  }
+
+  .apartment-card p {
+    font-size: 12px;
+  }
+
+  .footer {
+    padding: 10px;
+  }
+
+  .footer-links li {
+    display: block;
+    margin: 5px 0;
+  }
 }
