@@ -25,33 +25,3 @@
   background-color: white; /* White background on hover */
   color: #0dcaf0; /* Sky blue text on hover */
 }
-
-/* Media Queries for Smartphones */
-@media (max-width: 768px) {
-  .navbar-brand {
-    font-size: 1.2rem; /* Reduce brand font size for smaller screens */
-  }
-
-  .navbar {
-    padding: 10px 15px; /* Reduce padding for smaller screens */
-  }
-
-  .nav-link {
-    font-size: 0.9rem; /* Reduce font size for links on smaller screens */
-    padding: 8px 10px; /* Adjust padding for links on smaller screens */
-  }
-
-  .btn-outline-light {
-    font-size: 0.9rem; /* Reduce font size for buttons on smaller screens */
-    padding: 6px 10px; /* Adjust padding for buttons on smaller screens */
-  }
-
-  .navbar-toggler {
-    padding: 5px 10px; /* Adjust padding for the toggler button */
-  }
-
-  .navbar-toggler-icon {
-    width: 1.2em; /* Adjust size of the toggler icon */
-    height: 1.2em; /* Adjust size of the toggler icon */
-  }
-}

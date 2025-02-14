@@ -30,7 +30,7 @@ const Register = () => {
 
     try {
       // Make a POST request to the /register endpoint
-      const response = await axios.post("http://127.0.0.1:5000/register", formData);
+      const response = await axios.post("https://apartment-backend-1-immc.onrender.com/register", formData);
       if (response.status === 201) {
         setSuccess(true);
         setError("");
